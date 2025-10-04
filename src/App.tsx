@@ -1,12 +1,18 @@
-import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
-import { BoxProvider } from './context/BoxContext';
-import NavbarContainer from './components/Navbar/NavbarContainer';
-import AddBox from './pages/AddBox';
-import BoxList from './pages/BoxList';
+import { BrowserRouter, Routes, Route } from "react-router-dom";
+import { BoxProvider } from "./context/BoxContext";
+import NavbarContainer from "./components/Navbar/NavbarContainer";
+import AddBox from "./pages/AddBox";
+import BoxList from "./pages/BoxList";
 
-function App() {
+type AppProps = {
+  basename?: string;
+};
+
+export default function App({
+  basename = (import.meta as any).env?.BASE_URL ?? "/",
+}: AppProps) {
   return (
-    <Router>
+    <BrowserRouter basename={basename}>
       <BoxProvider>
         <div className="min-h-screen bg-neutral">
           <NavbarContainer />
@@ -16,8 +22,6 @@ function App() {
           </Routes>
         </div>
       </BoxProvider>
-    </Router>
+    </BrowserRouter>
   );
 }
-
-export default App;
